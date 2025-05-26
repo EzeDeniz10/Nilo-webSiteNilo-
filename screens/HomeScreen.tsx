@@ -1,4 +1,4 @@
-// src/screens/HomeScreen.tsx
+
 import React, { useRef } from 'react';
 import {
   Image,
@@ -10,13 +10,8 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-// import { RootStackParamList } from '../types/navigation';
-// TODO: Update the import path below if your navigation types are defined elsewhere
-// ...existing code...
-import { RootStackParamList } from '../types/navigation';
-// filepath: c:\Users\54341\Desktop\webSiteNilo\screens\HomeScreen.tsx
-// ...existing code...
 
+import { RootStackParamList } from '../types/navigation';
 
 import { HelloWave } from '@/components/HelloWave';
 import { ThemedText } from '@/components/ThemedText';
@@ -27,6 +22,8 @@ import Button from '../components/Button';
 import TextButton from '../components/TextButton';
 import Navbar from '@/components/Navbar';
 import CustomCard from '@/components/CustomCard';
+import cardsData from '../data/cardsData';
+
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
@@ -65,52 +62,51 @@ export default function HomeScreen() {
           <TextButton title="Solo texto" onPress={() => alert('Texto Presionado')} disabled={undefined} />
         </View>
 
-        <CustomCard
-          imageSource={require('../../assets/images/iniciar_sesion.jpg')}
-          title="Ejemplo de Tarjeta"
-          description="Esta es una tarjeta personalizada que muestra una imagen y un texto descriptivo."
-         
-        />
-
-        <ThemedView style={styles.titleContainer}>
-          <ThemedText type="title">Welcome!</ThemedText>
-          <HelloWave />
-        </ThemedView>
-
-        <ThemedView style={styles.stepContainer}>
-          <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-          <ThemedText>
-            Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-            Press{' '}
-            <ThemedText type="defaultSemiBold">
-              {Platform.select({
-                ios: 'cmd + d',
-                android: 'cmd + m',
-                web: 'F12',
-              })}
-            </ThemedText>{' '}
-            to open developer tools.
-          </ThemedText>
-        </ThemedView>
-
-        <ThemedView style={styles.stepContainer}>
-          <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          <ThemedText>
-            Tap the Explore tab to learn more about what's included in this starter app.
-          </ThemedText>
-        </ThemedView>
-
-        <ThemedView style={styles.stepContainer}>
-          <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-          <ThemedText>
-            When you're ready, run{' '}
-            <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-            <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-            <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-            <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-          </ThemedText>
-        </ThemedView>
-      </Animated.ScrollView>
+        {cardsData.map((card, index) => (
+          <React.Fragment key={index}>
+            <CustomCard
+              title={card.title}
+              description={card.description}
+              imageSource={card.imageSource}
+            />
+            <ThemedView style={styles.titleContainer}>
+              <ThemedText type="title">Welcome!</ThemedText>
+              <HelloWave />
+            </ThemedView>
+            <ThemedView style={styles.stepContainer}>
+              <ThemedText type="subtitle">Step 1: Try it</ThemedText>
+              <ThemedText>
+                Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
+                Press{' '}
+                <ThemedText type="defaultSemiBold">
+                  {Platform.select({
+                    ios: 'cmd + d',
+                    android: 'cmd + m',
+                    web: 'F12',
+                  })}
+                </ThemedText>{' '}
+                to open developer tools.
+              </ThemedText>
+            </ThemedView>
+            <ThemedView style={styles.stepContainer}>
+              <ThemedText type="subtitle">Step 2: Explore</ThemedText>
+              <ThemedText>
+                Tap the Explore tab to learn more about what's included in this starter app.
+              </ThemedText>
+            </ThemedView>
+            <ThemedView style={styles.stepContainer}>
+              <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
+              <ThemedText>
+                When you're ready, run{' '}
+                <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
+                <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
+                <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
+                <ThemedText type="defaultSemiBold">app-example</ThemedText>.
+              </ThemedText>
+            </ThemedView>
+          </React.Fragment>
+        ))}
+    </Animated.ScrollView>
     </View>
   );
 }

@@ -56,6 +56,7 @@ export default function CustomCard({ title, description, imageSource }: CustomCa
         </View>
       </View>
     </View>
+    
   );
 }
 

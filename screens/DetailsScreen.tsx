@@ -1,17 +1,18 @@
 import React from 'react';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { RouteProp } from '@react-navigation/native';
-// Update the import path if your types file is in a different location, for example:
-import type { RootStackParamList } from '../src/navigation/types';
-// Or create the file at src/navigation/types.ts and export RootStackParamList from there.
+import { Image, ScrollView, StyleSheet, Text, View, Button } from 'react-native';
+import { RouteProp, useNavigation } from '@react-navigation/native';
+import type { RootStackParamList } from '../types/navigation';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type DetailsScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
+type DetailsScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Details'>;
 
 type Props = {
   route: DetailsScreenRouteProp;
 };
 
 export default function DetailsScreen({ route }: Props) {
+  const navigation = useNavigation<DetailsScreenNavigationProp>();
   const { title, description, imageSource } = route.params;
 
   return (
@@ -19,6 +20,10 @@ export default function DetailsScreen({ route }: Props) {
       <Image source={imageSource} style={styles.image} resizeMode="cover" />
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.description}>{description}</Text>
+
+      <View style={styles.buttonContainer}>
+        <Button title="Volver" onPress={() => navigation.goBack()} />
+      </View>
     </ScrollView>
   );
 }
@@ -42,5 +47,9 @@ const styles = StyleSheet.create({
     marginTop: 15,
     fontSize: 16,
     color: '#444',
+  },
+  buttonContainer: {
+    marginTop: 30,
+    alignItems: 'center',
   },
 });
