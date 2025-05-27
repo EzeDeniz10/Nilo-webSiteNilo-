@@ -1,5 +1,6 @@
 
 import React, { useRef } from 'react';
+import { Dimensions } from 'react-native';
 import {
   Image,
   StyleSheet,
@@ -23,6 +24,7 @@ import TextButton from '../components/TextButton';
 import Navbar from '@/components/Navbar';
 import CustomCard from '@/components/CustomCard';
 import cardsData from '../data/cardsData';
+import ParallaxScrollView from '@/components/ParallaxScrollView';
 
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
@@ -35,23 +37,27 @@ export default function HomeScreen() {
     <View style={{ flex: 1 }}>
       <Navbar title="Inicio" scrollY={scrollY} />
 
-      <Animated.ScrollView
-        contentContainerStyle={{ paddingTop: 60 }}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-          { useNativeDriver: true }
-        )}
-        scrollEventThrottle={16}
+           <ParallaxScrollView
+        headerImage={
+          <Image
+          source={require('../assets/images/image17.jpg')}
+            style={styles.reactLogo}
+          />
+        }
+        headerBackgroundColor={{ light: '#fff', dark: '#222' }}
+        headerHeight={200}
       >
+        {/* ...todo el contenido que estaba dentro del ScrollView... */}
+      </ParallaxScrollView>
         <Welcome />
 
         <Image
-          source={require('../../assets/images/image 17.jpg')}
+          source={require('../assets/images/image17.jpg')}
           style={styles.reactLogo}
         />
 
         <Image
-          source={require('../../assets/images/iniciar_sesion.jpg')}
+          source={require('../assets/images/iniciar_sesion.jpg')}
           style={styles.bannerImage}
           resizeMode="contain"
         />
@@ -106,10 +112,14 @@ export default function HomeScreen() {
             </ThemedView>
           </React.Fragment>
         ))}
-    </Animated.ScrollView>
-    </View>
+      </View>
   );
 }
+
+const { width, height } = Dimensions.get('window');
+
+console.log('Ancho:', width);
+console.log('Alto:', height);
 
 const styles = StyleSheet.create({
   titleContainer: {

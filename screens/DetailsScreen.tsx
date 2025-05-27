@@ -4,6 +4,7 @@ import { RouteProp, useNavigation } from '@react-navigation/native';
 import type { RootStackParamList } from '../types/navigation';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
+
 type DetailsScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
 type DetailsScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Details'>;
 
